@@ -4,7 +4,7 @@
 #include <vector>
 
 #define COLOR_WHITE 0xFFFFFFFF
-#define RAY_COUNT 180
+#define RAY_COUNT 360
 
 struct Circle
 {
@@ -39,7 +39,7 @@ void generateRays(Circle circle, Ray rays[RAY_COUNT]) {
 	}
 }
 
-void FillRays(SDL_Surface* surface, Ray rays[RAY_COUNT], Uint32 color)
+void FillRays(SDL_Surface* surface, Ray rays[RAY_COUNT], Uint32 color,Circle circle)
 {
 	for (int i = 0; i < RAY_COUNT; i++)
 	{
@@ -63,6 +63,10 @@ void FillRays(SDL_Surface* surface, Ray rays[RAY_COUNT], Uint32 color)
 			if (x_draw<0 || x_draw > 800 || y_draw < 0 || y_draw > 600)
 			{
 				endOfScreen = 1;
+			}
+			if (std::pow(x_draw - circle.x, 2) + std::pow(y_draw - circle.y, 2) <= std::pow(circle.r, 2))
+			{
+				break;
 			}
 		}
 	}
@@ -97,7 +101,7 @@ int main(int argc, char* argv[]) {
 	FillCircle(surface, circle);
 
 	FillCircle(surface, shadowCircle);
-	FillRays(surface, rays, COLOR_WHITE);
+	FillRays(surface, rays, COLOR_WHITE,shadowCircle);
 
     SDL_UpdateWindowSurface(window);
 	SDL_Delay(10);
