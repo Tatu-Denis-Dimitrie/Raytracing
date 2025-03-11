@@ -5,6 +5,9 @@
 
 #define COLOR_WHITE 0xFFFFFFFF
 #define RAY_COUNT 360
+#define COLOR_GRAY 0xFF808080
+#define COLOR_YELLOW 0xFFFFFF00
+#define COLOR_YELLOWLL 0xa9b933
 
 struct Circle
 {
@@ -16,7 +19,7 @@ struct Ray {
 	double xStart, yStart;
 	double angle;
 };
-void FillCircle(SDL_Surface* surface, Circle circle)
+void FillCircle(SDL_Surface* surface, Circle circle,Uint32 color)
 {
 	for (double x = circle.x - circle.r; x <= circle.x + circle.r; x++)
 	{
@@ -25,7 +28,7 @@ void FillCircle(SDL_Surface* surface, Circle circle)
 			if (std::pow(x - circle.x, 2) + std::pow(y - circle.y, 2) <= std::pow(circle.r, 2))
 			{
 				SDL_Rect pixel = { (int)x, (int)y, 1, 1 };
-				SDL_FillRect(surface, &pixel, COLOR_WHITE);
+				SDL_FillRect(surface, &pixel, color);
 			}
 		}
 	}
@@ -98,13 +101,12 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	SDL_FillRect(surface, NULL, 0);
-	FillCircle(surface, circle);
+	FillCircle(surface, circle,COLOR_YELLOW);
 
-	FillCircle(surface, shadowCircle);
-	FillRays(surface, rays, COLOR_WHITE,shadowCircle);
+	FillCircle(surface, shadowCircle,COLOR_GRAY);
+	FillRays(surface, rays, COLOR_YELLOWLL,shadowCircle);
 
     SDL_UpdateWindowSurface(window);
-	SDL_Delay(10);
 	}
     return 0;
 }
