@@ -7,6 +7,7 @@ This C++ project demonstrates a simple ray tracing effect using SDL2. A light so
 ✔ Simulates light rays interacting with an obstacle.  
 ✔ Real-time mouse movement detection to update the light source.  
 </h3>
+
 ## How to Run
 
 1. Open the project in **Visual Studio**, **Code::Blocks**, or another C++ IDE that supports SDL2.
